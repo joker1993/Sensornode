@@ -46,6 +46,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 
+#define NODEID 2 // id of sensornode
 #define SHT_ADDRESS (0x44 << 1) // I2C address of SHT31-DIS-B sensor
 #define SHT_MEASURE_COMMAND 0x2400 // measurement command for SHT31-DIS-B sensor
 /* USER CODE END Includes */
@@ -115,20 +116,20 @@ int main(void)
   /* USER CODE BEGIN 2 */
   canInit();
   i2cInit();
-//  timerInit();
+  timerInit();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//	  if (timer2lock == 0){
+	  if (timer2lock == 0){
 		  temperature = readTemperature();
-		  sendCan(2, 't', temperature);
+		  sendCan(NODEID, 't', temperature);
 		  humidity = readHumidity();
-		  sendCan(2, 'h', humidity);
+		  sendCan(NODEID, 'h', humidity);
 		  timer2lock = 1;
-//	  }
+	  }
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
