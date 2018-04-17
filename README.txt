@@ -1,1 +1,0 @@
-- homerseklet egy tizedesre kerekitve es paratartalom kuldese egesz szamkent a basestationnek

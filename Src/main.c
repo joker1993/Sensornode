@@ -76,7 +76,7 @@ void i2cInit();
 void timerInit();
 float readTemperature();
 uint8_t readHumidity();
-void sendCan(float data, char type);
+void sendCan(uint8_t id, char dataName, float dataValue);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -115,20 +115,20 @@ int main(void)
   /* USER CODE BEGIN 2 */
   canInit();
   i2cInit();
-  timerInit();
+//  timerInit();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if (timer2lock == 0){
+//	  if (timer2lock == 0){
 		  temperature = readTemperature();
-		  sendCan(temperature, 't');
+		  sendCan(2, 't', temperature);
 		  humidity = readHumidity();
-		  sendCan(humidity, 'h');
+		  sendCan(2, 'h', humidity);
 		  timer2lock = 1;
-	  }
+//	  }
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -252,32 +252,37 @@ uint8_t readHumidity()
 	return humidity;
 }
 
-void sendCan(float data, char type)
+void sendCan(uint8_t id, char dataName, float dataValue)
 {
-	char temperature[20];
-	char humidity[20];
-	char temp[10];
-	char hum[10];
+	char sendString[30];
+	char data[10];
+	char nodeId[3];
 
 	hcan1.pTxMsg->StdId = 0x11;
 	hcan1.pTxMsg->RTR = CAN_RTR_DATA;
 	hcan1.pTxMsg->IDE = CAN_ID_STD;
 	hcan1.pTxMsg->DLC = 8;
 
-	switch (type)
+	switch (dataName)
 	{
 		case 't':
-			strcpy(temperature, "t=");
-			sprintf(temp, "%.1f", data);
-			strcat(temperature, temp);
-			strcpy((char *)hcan1.pTxMsg->Data, temperature);
+			sprintf(nodeId, "%d", id);
+			strcpy(sendString, nodeId);
+			strcat(sendString, ",");
+			strcat(sendString, "t,");
+			sprintf(data, "%.1f", dataValue);
+			strcat(sendString, data);
+			strcpy((char *)hcan1.pTxMsg->Data, sendString);
 			HAL_CAN_Transmit_IT(&hcan1);
 			break;
 		case 'h':
-			strcpy(humidity, "h=");
-			sprintf(hum, "%f", data);
-			strcat(humidity, hum);
-			strcpy((char *)hcan1.pTxMsg->Data, humidity);
+			sprintf(nodeId, "%d", id);
+			strcpy(sendString, nodeId);
+			strcat(sendString, ",");
+			strcat(sendString, "h,");
+			sprintf(data, "%.0f", dataValue);
+			strcat(sendString, data);
+			strcpy((char *)hcan1.pTxMsg->Data, sendString);
 			HAL_CAN_Transmit_IT(&hcan1);
 			break;
 	}
