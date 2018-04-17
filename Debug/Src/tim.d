@@ -1,5 +1,5 @@
-Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.o: \
- ../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.c \
+Src/tim.o: ../Src/tim.c \
+ C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Inc/tim.h \
  C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h \
  C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Inc/stm32l4xx_hal_conf.h \
  C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Inc/main.h \
@@ -31,6 +31,8 @@ Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.o: \
  C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
  C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim.h \
  C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h
+
+C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Inc/tim.h:
 
 C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:
 

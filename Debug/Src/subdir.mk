@@ -10,7 +10,8 @@ C_SRCS += \
 ../Src/main.c \
 ../Src/stm32l4xx_hal_msp.c \
 ../Src/stm32l4xx_it.c \
-../Src/system_stm32l4xx.c 
+../Src/system_stm32l4xx.c \
+../Src/tim.c 
 
 OBJS += \
 ./Src/can.o \
@@ -19,7 +20,8 @@ OBJS += \
 ./Src/main.o \
 ./Src/stm32l4xx_hal_msp.o \
 ./Src/stm32l4xx_it.o \
-./Src/system_stm32l4xx.o 
+./Src/system_stm32l4xx.o \
+./Src/tim.o 
 
 C_DEPS += \
 ./Src/can.d \
@@ -28,7 +30,8 @@ C_DEPS += \
 ./Src/main.d \
 ./Src/stm32l4xx_hal_msp.d \
 ./Src/stm32l4xx_it.d \
-./Src/system_stm32l4xx.d 
+./Src/system_stm32l4xx.d \
+./Src/tim.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -36,7 +39,7 @@ Src/%.o: ../Src/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32L496xx -I"C:/Users/Kristof/Documents/STM32L496RE_workspace/Sensornode/Inc" -I"C:/Users/Kristof/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc" -I"C:/Users/Kristof/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Kristof/Documents/STM32L496RE_workspace/Sensornode/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"C:/Users/Kristof/Documents/STM32L496RE_workspace/Sensornode/Drivers/CMSIS/Include" -I"C:/Users/Kristof/Documents/STM32L496RE_workspace/Sensornode/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32L496xx -I"C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Inc" -I"C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc" -I"C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Drivers/CMSIS/Include" -I"C:/Users/hallgato/Documents/STM32L496RE_workspace/Sensornode/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

@@ -22,4 +22,5 @@
 "Src/stm32l4xx_hal_msp.o"
 "Src/stm32l4xx_it.o"
 "Src/system_stm32l4xx.o"
+"Src/tim.o"
 "startup/startup_stm32l496xx.o"
