@@ -36,11 +36,12 @@
 #include "stm32l4xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+extern uint8_t timer2lock;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern CAN_HandleTypeDef hcan1;
+extern TIM_HandleTypeDef htim2;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -196,6 +197,20 @@ void CAN1_TX_IRQHandler(void)
   /* USER CODE BEGIN CAN1_TX_IRQn 1 */
 
   /* USER CODE END CAN1_TX_IRQn 1 */
+}
+
+/**
+* @brief This function handles TIM2 global interrupt.
+*/
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+  timer2lock = 0;
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+
+  /* USER CODE END TIM2_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

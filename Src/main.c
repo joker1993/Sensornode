@@ -40,6 +40,7 @@
 #include "stm32l4xx_hal.h"
 #include "can.h"
 #include "i2c.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
@@ -61,6 +62,8 @@ static uint8_t humidity; // value of humidity
 
 static CanTxMsgTypeDef txMessage;
 static CanRxMsgTypeDef rxMessage;
+
+uint8_t timer2lock = 1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,6 +73,7 @@ void SystemClock_Config(void);
 /* Private function prototypes -----------------------------------------------*/
 void canInit();
 void i2cInit();
+void timerInit();
 float readTemperature();
 uint8_t readHumidity();
 void sendCan(float data, char type);
@@ -106,22 +110,25 @@ int main(void)
   MX_GPIO_Init();
   MX_CAN1_Init();
   MX_I2C1_Init();
+  MX_TIM2_Init();
 
   /* USER CODE BEGIN 2 */
   canInit();
   i2cInit();
+  timerInit();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  temperature = readTemperature();
-	  sendCan(temperature, 't');
-	  humidity = readHumidity();
-	  sendCan(humidity, 'h');
-
-	  HAL_Delay(1000);
+	  if (timer2lock == 0){
+		  temperature = readTemperature();
+		  sendCan(temperature, 't');
+		  humidity = readHumidity();
+		  sendCan(humidity, 'h');
+		  timer2lock = 1;
+	  }
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -203,6 +210,11 @@ void canInit()
 void i2cInit()
 {
 	HAL_I2C_Mem_Read(&hi2c1, SHT_ADDRESS, SHT_MEASURE_COMMAND, 2, shtMeasureData, 5, 1000);
+}
+
+void timerInit()
+{
+	HAL_TIM_Base_Start_IT(&htim2);
 }
 
 float readTemperature()
