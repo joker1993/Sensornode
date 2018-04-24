@@ -224,10 +224,9 @@ float readTemperature()
 	uint8_t read = -1;
 	float temperature;
 
-//	HAL_I2C_Mem_Read(&hi2c1, SHT_ADDRESS, SHT_MEASURE_COMMAND, 2, shtMeasureData, 5, 1000);
 	while (ready != 0 && read != 0){
 		ready = HAL_I2C_IsDeviceReady(&hi2c1, SHT_ADDRESS, 3, 1000); // check the connection to SHT sensor
-	    read = HAL_I2C_Mem_Read(&hi2c1, SHT_ADDRESS, SHT_MEASURE_COMMAND, 2, shtMeasureData, 5, 1000); // read from SHT sensor
+	    read = HAL_I2C_Mem_Read(&hi2c1, SHT_ADDRESS, SHT_MEASURE_COMMAND, 2, shtMeasureData, 3, 1000); // read from SHT sensor
 	}
 
 	st = shtMeasureData[0]*256 + shtMeasureData[1]; // raw sensor output for temperature
